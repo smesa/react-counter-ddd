@@ -11,7 +11,7 @@ interface CounterStore {
     loadInitialCounter(): Promise<CounterEntity>;
     setCounter(counter: CounterEntity): void;
     updateCounter(counter: CounterEntity): Promise<CounterEntity> | undefined;
-
+    
 }
 
 export type { CounterStore };
