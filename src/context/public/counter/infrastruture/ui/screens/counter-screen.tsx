@@ -1,10 +1,26 @@
 import Spinner from '../components/spinner';
 import Button from '../components/button';
 import Count from '../components/count';
+import { useCounterStore } from '../../store';
+import { useCounterController } from '../../controllers';
+import { useEffect } from 'react';
 
 export const CounterScreen = () => {
-  const count = 0;
-  const isLoading = true;
+  
+  const store = useCounterStore();
+
+  const {
+    count,
+    isLoading,
+    canDecrement,
+    get,
+    increment,
+    decrement
+  } = useCounterController(store);
+
+  useEffect(() => {
+    get();
+  }, [get]);
 
   return (
     <>
@@ -15,9 +31,9 @@ export const CounterScreen = () => {
         </>
       ) : (
           <>
-            <Button disabled={true}>dec</Button>
-            <Count>{ count }</Count>
-            <Button disabled={true}>inc</Button>
+            <Button onClick={decrement} disabled={canDecrement}>dec</Button>
+            <Count>{ count?.value }</Count>
+            <Button onClick={increment} disabled={false}>inc</Button>
           </>
       ) }
     </>
